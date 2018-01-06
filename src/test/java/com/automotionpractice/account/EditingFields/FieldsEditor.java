@@ -1,10 +1,12 @@
 package com.automotionpractice.account.EditingFields;
 
 import com.automotionpractice.account.Mapping.ElementsLocations;
+import com.automotionpractice.account.TestingTools.BrowserFunctions;
 import com.automotionpractice.account.TestingTools.RandomGenerator;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
-public class FieldsEditor{
+public class FieldsEditor extends BrowserFunctions{
 
     RandomGenerator generator = new RandomGenerator();
     ElementsLocations element = new ElementsLocations();
@@ -13,6 +15,14 @@ public class FieldsEditor{
     public void editFields(WebElement element, String generator) {
         element.clear();
         element.sendKeys(generator);
+    }
+
+    //    Method that opens testing page and clicks on Sign In button on main page
+    public void signIn() throws InterruptedException {
+        openTestingPage();
+        Assert.assertEquals(driver.getCurrentUrl(),getBasicURL());
+        waitUntilPageLoads(element.getSignInLink());
+        element.getSignInLink().click();
     }
 
     //    Method that fills in day, month and year fields

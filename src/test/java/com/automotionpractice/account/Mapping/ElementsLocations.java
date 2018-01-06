@@ -42,7 +42,7 @@ public class ElementsLocations extends BrowserFunctions {
     public WebElement getLastName(){
         return driver.findElement(By.id("customer_lastname"));
     }
-    public WebElement getPassword(){
+    public WebElement getPassw(){
         return driver.findElement(By.id("passwd"));
     }
     public WebElement getBirthDayList(){

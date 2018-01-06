@@ -1,45 +1,91 @@
 package com.automotionpractice.account.TestingTools;
-//import com.automotionpractice.account.Main;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
+
+import com.automotionpractice.account.Mapping.ElementsLocations;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.*;
 
-import java.util.List;
 
 public class BrowserFunctions {
+    ElementsLocations element = new ElementsLocations();
     public static WebDriver driver;
-    String basicURL = "http://automationpractice.com/";
-    String temporaryMail = "https://temp-mail.org/pl/";
+    private String basicURL = "http://automationpractice.com/index.php";
+    private String temporaryMail = "https://temp-mail.org/pl/";
+    private String myAccountURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
+    private String myAccountCreationURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation";
+    private String myAccountEditionURL = "http://automationpractice.com/index.php?controller=my-account";
+    private String login = "zxc@zxc.com";
+    private String password = "zxc@123";
+    private String temporaryEMailAddress;
 
-//    public BrowserFunctions() {
-//        this.driver = Main.driver;
-//    }
+    public String getMyAccountURL() {
+        return myAccountURL;
+    }
 
-//     Method that waits till specified element will be visible and enable to click
+    public String getMyAccountCreationURL() {
+        return myAccountCreationURL;
+    }
+
+    public String getMyAccountEditionURL() {
+        return myAccountEditionURL;
+    }
+
+    public void setTemporaryEMailAddress(String temporaryEMailAddress) {
+        this.temporaryEMailAddress = temporaryEMailAddress;
+    }
+
+    public String getTemporaryEMailAddress() {
+        return temporaryEMailAddress;
+    }
+
+    public String getBasicURL() {
+        return basicURL;
+    }
+
+    public String getTemporaryMail() {
+        return temporaryMail;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    //     Method that waits till specified element will be visible and enable to click
     @BeforeSuite
     public void createDriver() {
         driver = new FirefoxDriver();
         driver.manage().window().maximize();
     }
-
+    //    Method that waits for web element to be clickable
     public void waitUntilPageLoads(WebElement element) throws InterruptedException{
         WebDriverWait wait = new WebDriverWait(driver, 25);
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-//     Method that opens registration page
+    //     Method that opens registration page
     public void openTestingPage (){
-        driver.get(basicURL);
+        driver.get(getBasicURL());
     }
-//
-//     Method that opens temporary e-mail page
+
+    //     Method that opens temporary e-mail page
     public void openTemporaryMailPage() {
-        driver.get(temporaryMail);
+        driver.get(getTemporaryMail());
+    }
+
+    //    Method that opens temporary e-mail page, waits to load and copies mail name to String
+    public void createEMail() throws InterruptedException {
+        openTemporaryMailPage();
+        waitUntilPageLoads(element.getTemporaryEMail());
+        setTemporaryEMailAddress(element.getTemporaryEMail().getAttribute("value"));
+        Assert.assertEquals(driver.getCurrentUrl(),getTemporaryMail());
     }
 
     @AfterSuite

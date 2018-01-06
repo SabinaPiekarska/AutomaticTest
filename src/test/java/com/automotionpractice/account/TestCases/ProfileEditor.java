@@ -6,55 +6,50 @@ import com.automotionpractice.account.TestingTools.BrowserFunctions;
 import com.automotionpractice.account.TestingTools.RandomGenerator;
 import org.testng.annotations.Test;
 
-public class ProfileEditor extends FieldsEditor {
+public class ProfileEditor extends BrowserFunctions {
 
     ElementsLocations element = new ElementsLocations();
-    BrowserFunctions functions = new BrowserFunctions();
+    FieldsEditor editor = new FieldsEditor();
     RandomGenerator generator = new RandomGenerator();
-    Registration register = new Registration();
-    String login = "zxc@zxc.com";
-    String password = "zxc@123";
 
-    @Test (priority = 1)
     //    Method that logs into existing account
     public void logIn () throws InterruptedException {
-//        functions.openTestingPage();
-//        functions.waitUntilPageLoads(element.getSignInLink());
-//        element.getSignInLink().click();
-        functions.createDriver();
-        register.signIn();
-        element.getEMailAddress().sendKeys(login);
-        element.getPassword().sendKeys(password);
+        editor.signIn();
+        element.getEMailAddress().sendKeys(getLogin());
+        element.getPassw().sendKeys(getPassword());
         element.getSingInButton().click();
     }
 
-    @Test (priority = 2)
     //    Method that clicks My Personal Information link on My ProfileEditor Page and edit all the available values
     public void editPersonalInfo () throws InterruptedException {
         Thread.sleep(2000);
-        functions.waitUntilPageLoads(element.getMyPersonalInfo());
+        waitUntilPageLoads(element.getMyPersonalInfo());
         element.getMyPersonalInfo().click();
         generator.randomRadioClick(element.getGender());
-        editFields(element.getNewName(), generator.generateRandomWord(25));
-        editFields(element.getNewLastname(), generator.generateRandomWord(25));
-        fillBirthday();
-        fillAdditionalOptions();
-        element.getOldPassword().sendKeys(password);
-//        String newPassword = generator.generateRandomInt(15);
-//        element.getPassword().sendKeys(newPassword);
-//        element.getConfirmPassword().sendKeys(newPassword);
+        editor.editFields(element.getNewName(), generator.generateRandomWord(25));
+        editor.editFields(element.getNewLastname(), generator.generateRandomWord(25));
+        editor.fillBirthday();
+        editor.fillAdditionalOptions();
+        element.getOldPassword().sendKeys(getPassword());
         element.getSaveChangesButton().click();
         element.getReturnToAccountButton().click();
     }
 
-    @Test (priority = 3)
     //    Method that clicks My Address link on My ProfileEditor Page and edit all the available values
     public void editAddress () throws InterruptedException {
-        functions.waitUntilPageLoads(element.getMyAddress());
+        waitUntilPageLoads(element.getMyAddress());
         element.getMyAddress().click();
-        functions.waitUntilPageLoads( element.getUpdateButton());
+        waitUntilPageLoads( element.getUpdateButton());
         element.getUpdateButton().click();
-        fillAddressInfo();
+        editor.fillAddressInfo();
         element.getSaveUpdateButton().click();
     }
+
+    @Test
+    public void editProfile () throws InterruptedException {
+        logIn();
+        editPersonalInfo();
+        editAddress();
+    }
+
 }

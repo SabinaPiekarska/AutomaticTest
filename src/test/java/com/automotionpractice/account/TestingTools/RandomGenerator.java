@@ -8,7 +8,13 @@ import java.util.Random;
 
 public class RandomGenerator extends BrowserFunctions {
 
-//The basic method that generates random string with established length, uses variables from methods below
+    private String randomPassword = generateRandomPassword(15);
+
+    public String getRandomPassword() {
+        return randomPassword;
+    }
+
+    //The basic method that generates random string with established length, uses variables from methods below
     public String generateRandomString (String chars, int x) {
         StringBuffer sb = new StringBuffer();
         Random random = new Random();
@@ -20,25 +26,25 @@ public class RandomGenerator extends BrowserFunctions {
         return output;
     }
 
-//    Method that passes specified letters to generateRandomString method
+    //    Method that passes specified letters to generateRandomString method
     public String generateRandomWord(int x) {
         String letters = "abcdefghijklmnopqrstuvwxyz";
         return generateRandomString(letters, x);
     }
 
-//    Method that passes specified numbers to generateRandomString method
+    //    Method that passes specified numbers to generateRandomString method
     public String generateRandomInt(int x){
         String numbers = "1234567890";
         return generateRandomString(numbers, x);
     }
 
-//Method that passes specified letters, numbers and special characters to generateRandomString method
+    //Method that passes specified letters, numbers and special characters to generateRandomString method
     public String generateRandomPassword (int x) {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*1234567890";
         return generateRandomString(chars, x);
     }
 
-//  Method that generate random click on web element from possible options
+    //  Method that generate random click on web element from possible options
     public void randomClick(List<WebElement> options) {
         Random random = new Random();
         while (true) {
@@ -53,27 +59,27 @@ public class RandomGenerator extends BrowserFunctions {
         }
     }
 
-//    Method that generate random click on radio button options
+    //    Method that generate random click on radio button options
     public void randomRadioClick (List<WebElement> options) {
         Random random = new Random();
         int index = random.nextInt(options.size());
         options.get(index).click();
     }
 
-// Method that counts the size of web element and passes it to randomClick method
+    // Method that counts the size of web element and passes it to randomClick method
     public void randomDropdownClick(WebElement element) {
         Select select = new Select(element);
         List <WebElement> elements = select.getOptions();
         randomClick(elements);
     }
 
-//Method that clicks on one of the dropdown options selected by text
+    //Method that clicks on one of the dropdown options selected by text
     public void clicksDropdownText(WebElement element, String text) {
             Select select = new Select(element);
             select.selectByVisibleText(text);
     }
 
-//    Method that randomly generates boolean value
+    //    Method that randomly generates boolean value
     public void generateRandomBoolean(WebElement element) {
         Random random = new Random();
         boolean value = random.nextBoolean();
