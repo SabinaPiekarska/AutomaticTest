@@ -12,16 +12,17 @@ public class ProfileEditor extends BrowserFunctions {
     FieldsEditor editor = new FieldsEditor();
     RandomGenerator generator = new RandomGenerator();
 
-    //    Method that logs into existing account
-    public void logIn () throws InterruptedException {
-        editor.signIn();
-        element.getEMailAddress().sendKeys(getLogin());
-        element.getPassw().sendKeys(getPassword());
-        element.getSingInButton().click();
-    }
+//    //    Method that logs into existing account
+//    public void logIn () throws InterruptedException {
+//        editor.signIn();
+//        element.getEMailAddress().sendKeys(getLogin());
+//        element.getPassw().sendKeys(getPassword());
+//        element.getSingInButton().click();
+//    }
 
     //    Method that clicks My Personal Information link on My ProfileEditor Page and edit all the available values
     public void editPersonalInfo () throws InterruptedException {
+        editor.logIn();
         Thread.sleep(2000);
         waitUntilPageLoads(element.getMyPersonalInfo());
         element.getMyPersonalInfo().click();
@@ -47,7 +48,6 @@ public class ProfileEditor extends BrowserFunctions {
 
     @Test
     public void editProfile () throws InterruptedException {
-        logIn();
         editPersonalInfo();
         editAddress();
     }

@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-
 public class BrowserFunctions {
     ElementsLocations element = new ElementsLocations();
     public static WebDriver driver;
@@ -58,12 +57,13 @@ public class BrowserFunctions {
         return password;
     }
 
-    //     Method that waits till specified element will be visible and enable to click
     @BeforeSuite
+    //     Method that waits till specified element will be visible and enable to click
     public void createDriver() {
         driver = new FirefoxDriver();
         driver.manage().window().maximize();
     }
+
     //    Method that waits for web element to be clickable
     public void waitUntilPageLoads(WebElement element) throws InterruptedException{
         WebDriverWait wait = new WebDriverWait(driver, 25);

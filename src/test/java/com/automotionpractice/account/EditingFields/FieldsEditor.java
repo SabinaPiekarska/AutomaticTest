@@ -25,6 +25,14 @@ public class FieldsEditor extends BrowserFunctions{
         element.getSignInLink().click();
     }
 
+    //    Method that logs into existing account
+    public void logIn () throws InterruptedException {
+        signIn();
+        element.getEMailAddress().sendKeys(getLogin());
+        element.getPassw().sendKeys(getPassword());
+        element.getSingInButton().click();
+    }
+
     //    Method that fills in day, month and year fields
     public void fillBirthday () {
         generator.randomDropdownClick(element.getBirthDayList());
