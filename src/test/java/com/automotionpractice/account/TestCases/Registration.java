@@ -13,10 +13,19 @@ public class Registration extends BrowserFunctions {
     RandomGenerator generator = new RandomGenerator();
     FieldsEditor editor = new FieldsEditor();
 
+    //    Method that opens temporary e-mail page, waits to load and copies mail name to String
+    public void createEMail() {
+        openTemporaryMailPage();
+        waitUntilPageLoads(element.getTemporaryEMail());
+        setTemporaryEMailAddress(element.getTemporaryEMail().getAttribute("value"));
+        Assert.assertEquals(driver.getCurrentUrl(),getTemporaryMail());
+    }
+
     //    Methods that enters e mail to create an account
     public void createAnAccount() throws InterruptedException {
         createEMail();
         editor.signIn();
+        Thread.sleep(2000);
         waitUntilPageLoads(element.getEMail());
         Assert.assertEquals(driver.getCurrentUrl(), getMyAccountURL());
         element.getEMail().sendKeys(getTemporaryEMailAddress());
@@ -35,7 +44,7 @@ public class Registration extends BrowserFunctions {
     }
 
     //    Method that fills in all remaining fields in a form
-    public void fillFields () throws InterruptedException {
+    public void fillFields () {
         editor.fillBirthday();
         editor.fillAdditionalOptions();
         editor.fillAddressInfo();

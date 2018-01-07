@@ -18,7 +18,7 @@ public class FieldsEditor extends BrowserFunctions{
     }
 
     //    Method that opens testing page and clicks on Sign In button on main page
-    public void signIn() throws InterruptedException {
+    public void signIn() {
         openTestingPage();
         Assert.assertEquals(driver.getCurrentUrl(),getBasicURL());
         waitUntilPageLoads(element.getSignInLink());
@@ -26,7 +26,7 @@ public class FieldsEditor extends BrowserFunctions{
     }
 
     //    Method that logs into existing account
-    public void logIn () throws InterruptedException {
+    public void logIn () {
         signIn();
         element.getEMailAddress().sendKeys(getLogin());
         element.getPassw().sendKeys(getPassword());
@@ -47,7 +47,7 @@ public class FieldsEditor extends BrowserFunctions{
     }
 
     //  Method that clears and than fills in address related fields
-    public void fillAddressInfo () throws InterruptedException {
+    public void fillAddressInfo () {
         editFields(element.getCompany(), generator.generateRandomWord(25));
         editFields(element.getAddress(), generator.generateRandomWord(25));
         editFields(element.getAddress2(), generator.generateRandomWord(25));

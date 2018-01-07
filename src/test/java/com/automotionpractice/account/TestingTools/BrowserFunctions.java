@@ -10,7 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 public class BrowserFunctions {
-    ElementsLocations element = new ElementsLocations();
+
     public static WebDriver driver;
     private String basicURL = "http://automationpractice.com/index.php";
     private String temporaryMail = "https://temp-mail.org/pl/";
@@ -65,7 +65,7 @@ public class BrowserFunctions {
     }
 
     //    Method that waits for web element to be clickable
-    public void waitUntilPageLoads(WebElement element) throws InterruptedException{
+    public void waitUntilPageLoads(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, 25);
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
@@ -78,14 +78,6 @@ public class BrowserFunctions {
     //     Method that opens temporary e-mail page
     public void openTemporaryMailPage() {
         driver.get(getTemporaryMail());
-    }
-
-    //    Method that opens temporary e-mail page, waits to load and copies mail name to String
-    public void createEMail() throws InterruptedException {
-        openTemporaryMailPage();
-        waitUntilPageLoads(element.getTemporaryEMail());
-        setTemporaryEMailAddress(element.getTemporaryEMail().getAttribute("value"));
-        Assert.assertEquals(driver.getCurrentUrl(),getTemporaryMail());
     }
 
     @AfterSuite

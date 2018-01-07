@@ -4,6 +4,7 @@ import com.automotionpractice.account.EditingFields.FieldsEditor;
 import com.automotionpractice.account.Mapping.ElementsLocations;
 import com.automotionpractice.account.TestingTools.BrowserFunctions;
 import com.automotionpractice.account.TestingTools.RandomGenerator;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ProfileEditor extends BrowserFunctions {
@@ -12,13 +13,6 @@ public class ProfileEditor extends BrowserFunctions {
     FieldsEditor editor = new FieldsEditor();
     RandomGenerator generator = new RandomGenerator();
 
-//    //    Method that logs into existing account
-//    public void logIn () throws InterruptedException {
-//        editor.signIn();
-//        element.getEMailAddress().sendKeys(getLogin());
-//        element.getPassw().sendKeys(getPassword());
-//        element.getSingInButton().click();
-//    }
 
     //    Method that clicks My Personal Information link on My ProfileEditor Page and edit all the available values
     public void editPersonalInfo () throws InterruptedException {
@@ -37,7 +31,7 @@ public class ProfileEditor extends BrowserFunctions {
     }
 
     //    Method that clicks My Address link on My ProfileEditor Page and edit all the available values
-    public void editAddress () throws InterruptedException {
+    public void editAddress () {
         waitUntilPageLoads(element.getMyAddress());
         element.getMyAddress().click();
         waitUntilPageLoads( element.getUpdateButton());
@@ -49,7 +43,7 @@ public class ProfileEditor extends BrowserFunctions {
     @Test
     public void editProfile () throws InterruptedException {
         editPersonalInfo();
+        Assert.assertEquals(driver.getCurrentUrl(), getMyAccountEditionURL());
         editAddress();
     }
-
 }
