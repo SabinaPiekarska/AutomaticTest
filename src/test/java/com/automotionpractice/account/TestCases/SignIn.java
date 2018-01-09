@@ -11,7 +11,7 @@ public class SignIn extends BrowserFunctions {
 
     @Test
     //    Method that logs in into already existing account
-    public void loggingIn () throws InterruptedException {
+    public void loggingIn () {
         editor.logIn();
         Assert.assertEquals(driver.getCurrentUrl(),getMyAccountEditionURL());
     }

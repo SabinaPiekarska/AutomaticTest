@@ -1,6 +1,8 @@
 package com.automotionpractice.account.EditingFields;
 
-import com.automotionpractice.account.Mapping.ElementsLocations;
+import com.automotionpractice.account.Mapping.AuthenticationURL;
+import com.automotionpractice.account.Mapping.FormURL;
+import com.automotionpractice.account.Mapping.MainPageURL;
 import com.automotionpractice.account.TestingTools.BrowserFunctions;
 import com.automotionpractice.account.TestingTools.RandomGenerator;
 import org.openqa.selenium.WebElement;
@@ -9,7 +11,9 @@ import org.testng.Assert;
 public class FieldsEditor extends BrowserFunctions{
 
     RandomGenerator generator = new RandomGenerator();
-    ElementsLocations element = new ElementsLocations();
+    MainPageURL mainURL = new MainPageURL();
+    AuthenticationURL authenticationURL = new AuthenticationURL();
+    FormURL formURL = new FormURL();
 
     //    Method that clears the field first and then sends String to the web element
     public void editFields(WebElement element, String generator) {
@@ -21,43 +25,43 @@ public class FieldsEditor extends BrowserFunctions{
     public void signIn() {
         openTestingPage();
         Assert.assertEquals(driver.getCurrentUrl(),getBasicURL());
-        waitUntilPageLoads(element.getSignInLink());
-        element.getSignInLink().click();
+        waitUntilPageLoads(mainURL.getSignInLink());
+        mainURL.getSignInLink().click();
     }
 
     //    Method that logs into existing account
     public void logIn () {
         signIn();
-        element.getEMailAddress().sendKeys(getLogin());
-        element.getPassw().sendKeys(getPassword());
-        element.getSingInButton().click();
+        authenticationURL.getEMailAddress().sendKeys(getLogin());
+        formURL.getPassw().sendKeys(getPassword());
+        authenticationURL.getSingInButton().click();
     }
 
     //    Method that fills in day, month and year fields
     public void fillBirthday () {
-        generator.randomDropdownClick(element.getBirthDayList());
-        generator.randomDropdownClick(element.getBirthMonthList());
-        generator.randomDropdownClick(element.getBirthYearList());
+        generator.randomDropdownClick(formURL.getBirthDayList());
+        generator.randomDropdownClick(formURL.getBirthMonthList());
+        generator.randomDropdownClick(formURL.getBirthYearList());
     }
 
     //    Method that ticks checkbox options
     public void fillAdditionalOptions () {
-        generator.generateRandomBoolean(element.getNewsletterCheckbox());
-        generator.generateRandomBoolean(element.getOfferCheckbox());
+        generator.generateRandomBoolean(formURL.getNewsletterCheckbox());
+        generator.generateRandomBoolean(formURL.getOfferCheckbox());
     }
 
     //  Method that clears and than fills in address related fields
     public void fillAddressInfo () {
-        editFields(element.getCompany(), generator.generateRandomWord(25));
-        editFields(element.getAddress(), generator.generateRandomWord(25));
-        editFields(element.getAddress2(), generator.generateRandomWord(25));
-        editFields(element.getCity(), generator.generateRandomWord(15));
-        generator.clicksDropdownText(element.getCountry(), "United States");
-        generator.randomDropdownClick(element.getStateList());
-        editFields(element.getPostcode(), generator.generateRandomInt(5));
-        editFields(element.getInfoTextarea(), generator.generateRandomWord(50));
-        editFields(element.getPhone(), generator.generateRandomInt(10));
-        editFields(element.getMobilePhone(), generator.generateRandomInt(10));
-        editFields(element.getAlias(), generator.generateRandomWord(15));
+        editFields(formURL.getCompany(), generator.generateRandomWord(25));
+        editFields(formURL.getAddress(), generator.generateRandomWord(25));
+        editFields(formURL.getAddress2(), generator.generateRandomWord(25));
+        editFields(formURL.getCity(), generator.generateRandomWord(15));
+        generator.clicksDropdownText(formURL.getCountry(), "United States");
+        generator.randomDropdownClick(formURL.getStateList());
+        editFields(formURL.getPostcode(), generator.generateRandomInt(5));
+        editFields(formURL.getInfoTextarea(), generator.generateRandomWord(50));
+        editFields(formURL.getPhone(), generator.generateRandomInt(10));
+        editFields(formURL.getMobilePhone(), generator.generateRandomInt(10));
+        editFields(formURL.getAlias(), generator.generateRandomWord(15));
     }
 }

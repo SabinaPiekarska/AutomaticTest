@@ -1,13 +1,13 @@
 package com.automotionpractice.account.TestingTools;
 
-import com.automotionpractice.account.Mapping.ElementsLocations;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.*;
+
+import java.util.concurrent.TimeUnit;
 
 public class BrowserFunctions {
 
@@ -58,13 +58,13 @@ public class BrowserFunctions {
     }
 
     @BeforeSuite
-    //     Method that waits till specified element will be visible and enable to click
+    //   Method that creates new Firefox driver and maximize browser window
     public void createDriver() {
         driver = new FirefoxDriver();
         driver.manage().window().maximize();
     }
 
-    //    Method that waits for web element to be clickable
+    //     Method that waits till specified element will be visible and enable to click
     public void waitUntilPageLoads(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, 25);
         wait.until(ExpectedConditions.elementToBeClickable(element));
